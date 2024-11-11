@@ -437,6 +437,12 @@ input[type=submit]{
 .ratings span[data-clicked]{
     color: yellow;
 }
+.filled {
+    color: yellow;
+}
+.redFilled {
+    color: red;
+}
 
 #userName{
     color: white;
@@ -477,6 +483,7 @@ input[type=submit]{
 #action {
     width: 15%;
 }
+
 .progress {
     width: 1%;
     height: 1.7rem;
@@ -511,6 +518,12 @@ input[type=submit]{
     position: relative;
     z-index: 1;
 }
+.userDataPicture:hover {
+    cursor: pointer;
+}
+#userScore:hover{
+    cursor: not-allowed;
+}
 .userDataPicture p {
     color: black;
     z-index: 2;
@@ -519,7 +532,7 @@ input[type=submit]{
     left:40%;
     top: 45%;
 }
-#scoreAndNumber {
+#userStatistics {
     width: 75%;
 }
 #containerRatedMovies {

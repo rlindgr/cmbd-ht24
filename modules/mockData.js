@@ -1,4 +1,4 @@
-console.log("nu är den ändrad")
+
 export async function getMovies(){
   return [
     {
@@ -75,7 +75,7 @@ export async function getMovies(){
         "has_rated": false,
         "title": "and you totally redeem yourself",
         "content": "Den här filmen är omöjlig att inte älska.",
-        "cmdb_score": 5,
+        "cmdb_score": 2,
         "contribution_date": "2024-10-02"
       },
       "genres": [
@@ -128,7 +128,7 @@ export async function getMovies(){
         "has_rated": false,
         "title": "För lång",
         "content": "Filmen är en stark berättelse och den är sevärd. Men den är lite för lång för att få full pott.",
-        "cmdb_score": 4,
+        "cmdb_score": -1,
         "contribution_date": "2024-10-03"
       },
       "genres": [
@@ -189,7 +189,7 @@ export async function getMovies(){
         "has_rated": false,
         "title": "Mästerlig",
         "content": "En serie man både älskar och hatar. Det har finess, samtidigt som den är plump.",
-        "cmdb_score": 5,
+        "cmdb_score": 4,
         "contribution_date": "2024-08-21"
       },
       "genres": [

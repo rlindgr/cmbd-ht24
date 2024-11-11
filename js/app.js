@@ -1,22 +1,18 @@
 
-console.log("Loading app.js");
 import { getMovies } from "../modules/mockData.js";
 import{generateMovies} from "../modules/ui.js";
-import{createStars} from "../modules/data.js";
+import{generateUserStatistcs} from "../modules/ui.js";
+import {generateFilters} from "../modules/ui.js";
 let movies = [];
 
 document.addEventListener("DOMContentLoaded", async () => {
   movies = await getMovies();
-  console.log(movies);
-  generateMovies(movies);
-  for(const movie of movies){
-    let movieScore = movie.cmdb_score;
-    createStars(movieScore);
-  }
-  
+  await generateMovies(movies);
+  await generateUserStatistcs(movies);
+  await generateFilters(movies);
 });
 
-
+ 
 
 
 
