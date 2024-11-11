@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width-device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylesheet.css">
+    <script src="https://kit.fontawesome.com/74e6607f1f.js" crossorigin="anonymous"></script>
+    <title>Cineisternas filmklubb</title>
+</head>
+
+<body>
+    <nav class="flex-container navigation">
+        <div class="flex-container pages">
+          <ul class="menu ">
+            <li><a href="Index.html">Hem</a></li>
+                <li><a href="#">Filmer</a></li>
+                <li><a href="#">Serier</a></li>
+          </ul>
+    
+          <div class="hamburger">
+            <i class="fa-solid fa-bars"></i>
+           </div>
+    
+        </div>  
+        <div class="flex-container searchAndSettings">
+          <ul>
+                <li><a href="userPage.html">Profil</a></li>
+          </ul>
+          <div class="searchbar">
+            <a href="search.html">
+                <form article="searchbar">
+                    <input type="text" placeholder="Sök..." name="search">
+                </form>
+            </a>
+        </div>
+        </div>
+        </nav>
+    <main>
+        <section class="flex-container">
+            <article class="topMovie flex-container">
+                <div class="flex-container flex-item">
+                    <img src="Images/NottingHill.jpg">
+                  </div>
+                <div class="flex-container movieInfoAndRating">
+                <h3>Notting Hill</h3>
+                <div class="shortInfoOnMovie flex-container">
+                <p class="flex-item">Romance Comedy</p>
+                  <p class="flex-item"> 1999</p>
+                  
+                </div>
+                  
+                  <p class="flex-item">William Thacker is a London bookstore owner whose humdrum existence is thrown into romantic turmoil when famous American actress Anna Scott appears in his shop. A chance encounter over spilled orange juice leads to a kiss that blossoms into a full-blown affair. As the average bloke and glamorous movie star draw closer and closer together, they struggle to reconcile their radically different lifestyles in the name of love.
+                  
+                  <div class="btnRating flex-container">
+                    <button class="btnRating-1" type="button">-1</button>
+                    <button class="btnRating1" type="button">1</button>
+                    <button class="btnRating2" type="button">2</button>
+                    <button class="btnRating3" type="button">3</button>
+                    <button class="btnRating4" type="button">4</button>
+                    <button class="btnRating5" type="button">5</button>
+                  </div>
+                </div>
+            </article>
+        </section>
+
+        <section class="flex-container actors">
+            <div class="flex-container actor">
+                <img src="Images/JuliaRoberts.jpg">
+                <p>Julia Roberts</p>
+            </div>
+            <div class="flex-container actor">
+                <img src="Images/HughGrant.jpg">
+                <p>Hugh Grant</p>
+            </div>
+            <div class="flex-container actor">
+                <img src="Images/GinaMckee.jpg">
+                <p>Gina Mckee</p>
+            </div>
+        </section>
+        
+        <div class="flex-container rewiev">
+            <section class="recensionMovie flex-container">
+                <h2>Skriv en recension</h2>
+                <div class="recensionForm">
+                    <form action="/action_page.php">
+                        <div class="btnRating flex-container">
+                            <button class="btnRating-1" type="button">-1</button>
+                            <button class="btnRating1" type="button">1</button>
+                            <button class="btnRating2" type="button">2</button>
+                            <button class="btnRating3" type="button">3</button>
+                            <button class="btnRating4" type="button">4</button>
+                            <button class="btnRating5" type="button">5</button>
+                          </div>
+                        <label for="Name">Namn</label>
+                        <input type="text" id="nameTxt" name="nameTxt" placeholder="För-och efternamn">
+                        <br/>
+                        <label for="Date">Datum</label>
+                        <input type="date" id="date" name="date" placeholder="Dagens datum">
+                        <br/>
+                        <label for="recesnsionText">Recension</label>
+                        <input type="text" id="recensionText" name="recensionText" placeholder="Berätta för oss vad du tyckte om filmen!">
+                        <br/>
+                        <input type="submit" value="submit">
+                    </form>
+                </div>
+            </section>
+
+            <section class="flex-container userReviews">
+                <div class="flex-container userReview">
+                    User review
+                </div>
+                <div class="flex-container userReview">
+                    User review
+                </div>
+                <div class="flex-container userReview">
+                    User review
+                </div>
+            </section>
+        </div>
+     
+
+        
+
+    </main>
+
+    <footer>
+        <a href="#">Kontakta oss</a>
+        <h4>@2024Cineisterna</h4>
+    </footer>
+   
+</body>

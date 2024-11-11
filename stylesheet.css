@@ -1,0 +1,690 @@
+/*General, covers the whole project*/
+*{
+    box-sizing: border-box;
+    margin: 0px;
+    font-family: Times New Roman, Times, serif;
+}
+.flex-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    overflow: hidden;
+}
+.flex-item {
+    flex: 1 1 auto;
+    max-width: 40%;
+    box-sizing: border-box;
+    padding: 10px;
+}
+.flex-item img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    overflow: hidden;
+}
+
+nav{
+    background-color: rgb(63, 2, 2);
+    color: white;
+    font-size: large;
+   justify-content: space-between;
+   border-top: solid;
+   border-color: white;
+   
+}
+nav ul{
+    list-style-type: none;
+    padding: 0px;
+   
+}
+
+nav li{
+    padding-left: 10px;
+   display: inline-block;
+}
+
+nav li:hover{
+    background-color: black;
+}
+
+nav li a{
+    text-decoration: none;
+    color: white;
+}
+.hamburger {
+    visibility: hidden;
+}
+h1{
+    font-size: 2.4rem;
+    padding: 50px;
+}
+h2 {
+    font-size: 2rem;
+}
+h3 {
+    font-size: 1.7rem;
+}
+p{
+    font-size: 0.75rem;
+}
+
+header{
+    background-color: rgb(63, 2, 2);
+    text-align: center;
+    font-size: xx-large;
+    padding: 50px;
+    height: 500px;
+    color: white;
+}
+
+
+main{
+    background-color: black;
+    padding-bottom: 300px;
+   
+}
+
+main article{
+   
+    padding: 10px;
+    height: fit-content;
+    margin: 5px;
+
+}
+
+.btnRating-1{
+    background-color: red;
+}
+.btnRating1{
+    background-color: orange;
+}
+.btnRating2{
+    background-color: yellow;
+}
+.btnRating3{
+    background-color: lightgreen;
+}
+.btnRating4{
+    background-color: green;
+}
+.btnRating5{
+    background-color: darkgreen;
+}
+
+
+.movieInfoAndRating {
+    flex-direction: column;
+    flex: 20%;
+    color: white;
+    padding: 10px;
+    justify-content: initial;
+}
+
+.clearfix{
+    overflow:auto;
+}
+
+.btnRating {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.btnRating button {
+    border: none;
+    cursor: pointer;
+}
+
+
+.btn{
+    background-color: white;
+    width: fit-content;
+    color: rgb(63, 2, 2);
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 10px;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+footer{
+    text-align: center;
+    padding: 20px;
+    text-decoration: none;
+    color: white;
+    background-color: rgb(63, 2, 2);
+}
+
+footer a{
+    text-decoration: none;
+    color: white;
+}
+
+footer a:hover{
+    color: rgb(63, 2, 2);
+}
+
+/* End of general */
+
+
+/*Index*/
+
+.images {
+   height: 90%;
+  
+}
+
+.topThree {
+    height: fit-content;
+    padding-left: 15%;
+    padding-right: 15%;
+    background-color: black;
+}
+.topTwoAndThree{
+    flex-direction: column;
+    height: 90%;
+    flex: 35%;
+    justify-content: space-between;
+}
+
+.topMovies{
+    height: 45%;
+    flex: 35%;
+   
+}
+
+.topMovie{
+    
+    flex: 55%;
+    height: fit-content;
+   
+}
+
+main img {
+    max-width: 100%; 
+    z-index: 1;
+    max-height: 100%;
+    border-radius: 5%;
+}
+
+.topMovie article {
+    
+    z-index: 2;
+    flex: 15%;
+}
+
+#topMoviesText{
+    flex-direction: column;
+}
+
+.listOfTen{
+    margin-top: 150px;
+    flex-direction: row;
+    flex: 100%;
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+#headerTopTen{
+   font-size: xx-large;
+    color:  white;
+    flex: 100%;
+}
+.subHeader {
+    color: white;
+    font-size: 1.75rem;
+}
+
+
+
+
+.topTen{
+    background-color: black;
+    width: 30%;
+}
+
+
+
+
+
+/*Search*/
+#searcHeader {
+    height: fit-content;
+    border-bottom: solid;
+    border-color: white;
+    color: white;
+}
+.filter {
+    background-color: rgb(63, 2, 2);
+    justify-content: initial;
+}
+input [type=text], select {
+    width: 100%;
+    margin: 10px;
+    padding: 5px;
+    display: inline-block;
+    border: 1px solid grey;
+    border-radius: 4px;
+}
+.mainSearch {
+    padding: 5px;
+    padding-bottom: 300px;
+    background-color: rgb(63, 2, 2);
+}
+.resultMovies {
+    justify-content: space-between;
+    flex-direction: column;
+    padding: 10px;
+    text-align: center;
+    font-size: 20px;
+    color: white;
+    font-size: 14px;
+    width: 50%;
+}
+.searchResult {
+    max-width: 30%;
+}
+.resultMovies article {
+    border-top: solid;
+    border-bottom: solid;
+    border-color: white;
+    height: fit-content;
+    flex: 30%;
+    padding: 0; 
+}
+
+
+/* Details vindow*/
+.recensionMovie {
+    width: 50%;
+    border: #050609;
+    height: auto;
+    border-style: solid;
+    background-color: lightgray;
+    align-items: center;
+    flex-direction: column;
+}
+
+.recensionForm {
+    width: 90%;
+}
+input[type=text], textarea{
+    width: 100%;
+    margin: 10px;
+    padding: 15px;
+    display: inline-block;
+    border: 1px solid grey;
+    border-radius: 4px;
+}
+
+#recensionText {
+    height: 200px;
+}
+
+input[type=submit]{
+   width: 100%;
+   background-color: green;
+   color: white;
+   padding: 10px;
+   margin: 10px;
+   border-radius: 10px;
+   border: none;
+   cursor: pointer;
+   font-size: 16px;  
+}
+
+.actors img {
+    border-radius: 50%;
+    max-height: 95%;
+}
+
+.actor {
+    height: 300px;
+    flex-direction: column;
+    justify-content: initial;
+    align-items: center;
+}
+.actor p {
+    color: white;
+}
+.shortInfoOnMovie {
+    flex-direction: row;
+    justify-content: space-around;
+}
+.review {
+    flex: 100%;
+    flex-direction: row;
+}
+
+.userReview {
+    height: 200px;
+    background-color: lightgray;
+    width: 100%;
+    border-style: solid;
+    border-color: #050609;
+    padding: 20px;
+    margin-top: 10%;
+}
+
+.userReviews {
+    width: 40%;
+    flex-direction: column;
+    
+}
+
+/*UserPage*/
+#userPic {
+    border-radius:50%;
+    border-style: solid;
+    border-color: #050609;
+    border-width: 5px;
+    background-color: aliceblue;
+}
+.userInfo {
+    width: 100%;
+    align-items: center;
+    background-image: url("Images/blue-night-sky.webp");
+    background-repeat:no-repeat ;
+    background-size: cover;
+    position: relative;
+
+}
+.userPage {
+    background-image: url("Images/night-sky-wide.webp");
+    background-size: cover;
+    align-items: center;
+}
+.content {
+    width: 60%;
+}
+.rated {
+    background-color: #070D0D;
+    width: 100%;
+    color: white;
+    flex-direction: column;
+}
+.rated h3 {
+   display: flex;
+   width: 100%;
+   padding-left: 15px;
+}
+
+/*https://www.google.com/search?q=rating+using+stars+html+and+javascript&rlz=1C1FHFK_enSE1124SE1125&oq=rating+using+stars+html+and+javascript&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIKCAEQABiABBiiBDIKCAIQABiABBiiBDIKCAMQABiABBiiBDIKCAQQABiABBiiBDIKCAUQABiABBiiBNIBCTE0Njc5ajBqNKgCALACAQ&sourceid=chrome&ie=UTF-8#fpstate=ive&vld=cid:3ed94fac,vid:_gToDN-aoyI,st:105*/
+.ratings-wrapper {
+    display: inline-block;
+}
+.ratings {
+    flex-direction: row-reverse;
+}
+.ratings span {
+    cursor: pointer;
+    transition: color .2s, transform .2s;
+    font-size: 2rem;
+}
+.ratings span:hover {
+    color: yellow;
+    transform: scale(1.3);
+}
+.ratings span:hover ~ span {
+    color: yellow;
+}
+/*https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity*/
+.ratings span.negativeRating:hover {
+    color: red;
+}
+.ratings span[data-clicked]{
+    color: yellow;
+}
+
+#userName{
+    color: white;
+    position:absolute ;
+    bottom: 0;
+    left: 0;
+    background-color: #070D0D;
+    width: 100%;
+    justify-content: initial;
+    padding-left: 15px;
+}
+
+.containerStatistics {
+    width: 100%;
+    background-color: #070D0D;
+    padding-top: 20px;
+}
+.containerProgressBars {
+    width: 25%;
+    flex-direction: column;
+    padding: 5px;
+    padding-left: 10px;
+}
+.progressBar {
+    display: flex;
+    width: 100%;
+    background-color: grey;
+    border-radius: 25%;
+    overflow: hidden;
+    position: relative;
+    flex-direction: column;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.progressBar:hover {
+    cursor: pointer;
+}
+#action {
+    width: 15%;
+}
+.progress {
+    width: 1%;
+    height: 1.7rem;
+    background-color: red;
+    z-index: 1;
+    position: relative;
+}
+.progressBar p {
+    z-index: 2;
+    position: absolute;
+    font-size: 1.3rem;
+    left: 37%;
+    color: white;
+}
+.ratedMovies {
+    width: 24%;
+    height: auto;
+}
+.stars {
+    width: 100%;
+    flex-wrap: nowrap;
+}
+#userScore p {
+    top: 60%;
+    left: 42%;
+}
+#userTv p {
+    left: 30%;
+}
+.userDataPicture {
+    width: 30%;
+    position: relative;
+    z-index: 1;
+}
+.userDataPicture p {
+    color: black;
+    z-index: 2;
+    position: absolute;
+    font-size: 1.5rem;
+    left:40%;
+    top: 45%;
+}
+#scoreAndNumber {
+    width: 75%;
+}
+#containerRatedMovies {
+    justify-content: initial;
+}
+
+@media all and (max-width: 1550px){
+    .topThree {
+        padding: 0%;
+    }
+    .listOfTen {
+        padding: 0%;
+    }
+    .topTen {
+        width: 30%;
+    }
+    .content {
+        width: 75%;
+    }
+   
+
+}
+/*For flexibility with diffrent sized screens*/
+/*Tablet*/
+@media all and (max-width:1024px) {
+    .topMovie {
+        flex: 100%;
+    }
+    .topMovies {
+        flex:45%;
+    }
+    
+    .topTen {
+        width: 45%;
+    }
+   
+    .topThree {
+        padding: 0%;
+    }
+    .ratedMovies {
+        width: 48%;
+    }
+    .containerStatistics {
+        flex-direction: column;
+    }
+    #scoreAndNumber {
+        width: 100%;
+    }
+    .containerProgressBars {
+        width: 50%;
+    }
+    .ratings span {
+        font-size: 3rem;
+    }
+    
+
+   
+}
+
+
+/*Phone*/
+@media all and (max-width: 640px){
+  
+    main article {
+    border-style: solid;
+    border-color: white;
+    margin: 10px;
+  }
+    .flex-container {
+    flex-direction: column;
+  }
+    .navigation {
+        flex-direction: row;
+    }
+   .hamburger {
+    visibility: visible;
+    cursor: pointer;
+    font-size: 4rem;
+    margin-top: 15px;
+    padding-bottom: 5px;
+   }
+ 
+    .menu {
+    display: none;
+   }
+   .searchAndSettings {
+    flex-direction: column;
+   }
+   nav ul {
+    display: flex;
+    flex-direction: column;
+   }
+    /*Index*/
+    .topTwoAndThree {
+        flex-direction: row;
+    }
+    .topMovie {
+        width: 90%;
+    }
+    .topMovies {
+        flex:100%;
+    }
+    .topTen {
+        width: 90%;
+    }
+    .btnRating {
+        flex-direction: row;
+        width: 100%;
+       
+    }
+    .btnRating button {
+        width: 100%;
+        height: 2rem;
+    }
+    .btn {
+        width: 100%;
+    }
+
+   /*Details*/
+  
+  .topMovie {
+    height: fit-content;
+  }
+  .btnRating {
+    padding: 5px;
+  }
+  
+  .recensionMovie {
+    flex: 100%;
+  }
+  .userReviews {
+    flex: 100%;
+  }
+
+  /*Search*/
+  .resultMovies, .recensionMovie, .userReviews {
+    width: 100%;
+  }
+
+  /*userPage*/
+  #userName {
+    padding: 15px;
+  }
+  .containerProgressBars {
+    width: 100%;
+}
+.ratings {
+    flex-direction: row-reverse;
+}
+.ratings span {
+    font-size: 3rem;
+}
+.ratedMovies {
+    width: 90%;
+}
+.userDataPicture {
+    width: 100%;
+}
+#userName {
+    position: static;
+}
+
+
+
+ 
+
+}
+
