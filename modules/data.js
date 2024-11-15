@@ -1,25 +1,6 @@
 import {generateMovies} from "./ui.js"
  
-export function createStars(cmdbScore){
-    const starsDiv = document.createElement("div");
-    starsDiv.classList.add("ratings");
-    if(cmdbScore === -1){
-        const redStar = document.createElement("span");
-        redStar.innerHTML = "&#9733;";
-        redStar.classList.add("redFilled");
-        starsDiv.appendChild(redStar);
-    } 
-    else{
-        for(let i = 0; i < cmdbScore;){
-            const goldStar = document.createElement("span");
-            goldStar.innerHTML = "&#9733;";
-            goldStar.classList.add("filled");
-            starsDiv.appendChild(goldStar);
-            i++;
-        }
-    }
-    return starsDiv;
-}
+
 export function averageSum(movies){
     let sum = 0;
     for(const movie of movies) {
@@ -28,6 +9,64 @@ export function averageSum(movies){
    console.log(sum);
    let averageScore = sum / movies.length;
    return averageScore;
+}
+
+export function createStars(cmdbScore, isClickable = false) {
+  const starsDiv = document.createElement("div");
+  starsDiv.classList.add("ratings");
+  
+
+  if (cmdbScore === -1) {
+      const redStar = document.createElement("span");
+      redStar.innerHTML = "&#9733;";
+      redStar.classList.add("redFilled");
+      starsDiv.appendChild(redStar);
+  } else {
+      for (let i = 0; i < cmdbScore; i++) {
+        const star = document.createElement("span");
+        star.innerHTML = "&#9733;"; // Fylld stjärna
+        star.classList.add("filled");
+        starsDiv.appendChild(star);
+      }
+  }
+
+  // Om isClickable är true, gör hela starsDiv klickbar och lägg till eventlistener
+  if (isClickable) {
+      starsDiv.classList.add("clickable");
+      starsDiv.addEventListener("click", openRatingModal); // Använd modal-funktion
+  }
+
+  return starsDiv;
+}
+
+function openRatingModal(event) {
+  const ratingModal = document.getElementById("ratingModal");
+  ratingModal.style.display = "block";
+  
+  // Spara filmen som klickades på så vi kan identifiera den senare
+  ratingModal.dataset.movieId = event.target.closest("article").id;
+
+  // Pre-selektera stjärnorna i modalen baserat på befintligt betyg
+  const existingRating = event.target.dataset.rating || 0;
+  const stars = document.querySelectorAll("#starRating .star");
+  stars.forEach(star => {
+      if (parseInt(star.dataset.rating) <= existingRating) {
+          star.classList.add("selected");
+      } else {
+          star.classList.remove("selected");
+      }
+  });
+}
+function closeModal() {
+  // Hitta modalen
+  const ratingModal = document.getElementById("ratingModal");
+  
+  // Sätt modalens display till "none" för att dölja den
+  ratingModal.style.display = "none";
+  
+  // Rensa stjärnmarkeringarna i modalen (om du vill att betygsvalen ska återställas varje gång)
+  const stars = document.querySelectorAll("#starRating .star");
+  stars.forEach(star => star.classList.remove("selected"));
 }
 
 

@@ -11,37 +11,38 @@
 </head>
 
 <body>
-    <nav class="flex-container navigation">
-        <div class="flex-container pages">
-          <ul class="menu ">
-            <li><a href="Index.html">Hem</a></li>
-                <li><a href="#">Filmer</a></li>
-                <li><a href="#">Serier</a></li>
-          </ul>
-    
-          <div class="hamburger">
-            <i class="fa-solid fa-bars"></i>
-           </div>
-    
-        </div>  
-        <div class="flex-container searchAndSettings">
-          <ul class="menu">
-                <li><a href="#">Profil</a></li>
-          </ul>
-          <div class="searchbar">
-            <a href="search.html">
-                <form article="searchbar">
-                    <input type="text" placeholder="Sök..." name="search">
-                </form>
-            </a>
-        </div>
-        </div>
-        </nav>
+  <nav class="flex-container navigation">
+    <div class="flex-container pages">
+      <ul class="menu ">
+        <li><a href="Index.html">Hem</a></li>
+            <li><a href="Movies.html">Filmer</a></li>
+            <li><a href="Series.html">Serier</a></li>
+      </ul>
 
-        <main class="flex-container userPage">
-          <div class="flex-container content">
+      <div class="hamburger">
+        <i class="fa-solid fa-bars"></i>
+       </div>
+
+    </div>  
+    <div class="flex-container searchAndSettings">
+      <ul class="menu">
+        <li>
+          <a href="userPage.html">
+            <i class="fa-solid fa-user"></i>
+          </a>
+      </li>
+      </ul>
+      <section class="searchbar">
+        <input type="text" name="search-input" id="search" placeholder="Sök..." oninput="performSearch(event)" />
+      </section>
+    </div>
+  </nav>
+
+        <main class="flex-container userPage" >
+          <div class="search-container"></div>
+          <div class="flex-container content" id="userContainer">
             <div class="flex-container userInfo">
-              <img class="flex-item" id="userPic" src="Images/profilbild.png">
+              <img class="flex-item" id="userPic" src="https://robohash.org/43b0a35f1a6845565872ceec2aa4adc3ba852ef048e822b17b8d5e37d59028a0">
               <div class="flex-container" id="userName">
                 <h3>Förnamn Efternamn</h3>
               </div>

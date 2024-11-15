@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylesheet.css">
+    <script src="https://kit.fontawesome.com/74e6607f1f.js" crossorigin="anonymous"></script>
+    <script type="module" src="js/indexApp.js"></script>
+    <title>Cineisternas filmklubb</title>
+</head>
+<body>
+
+   <header class="flex-container">
+    <img class="flex-item" src="Images/poppe4.png">
+    <h1>Cinersiternas filmklubb</hi>
+   </header>
+
+   <nav class="flex-container navigation">
+    <div class="flex-container pages">
+      <ul class="menu ">
+        <li><a href="Index.html">Hem</a></li>
+            <li><a href="Movies.html">Filmer</a></li>
+            <li><a href="Series.html">Serier</a></li>
+      </ul>
+
+      <div class="hamburger">
+        <i class="fa-solid fa-bars"></i>
+       </div>
+
+    </div>  
+    <div class="flex-container searchAndSettings">
+      <ul class="menu">
+        <li>
+          <a href="userPage.html">
+            <i class="fa-solid fa-user"></i>
+          </a>
+      </li>
+      </ul>
+      <div class="searchbar">
+        <a href="search.html">
+            <form article="searchbar">
+                <input type="text" placeholder="Sök..." name="search">
+            </form>
+        </a>
+    </div>
+    </div>
+    </nav>
+
+    <main class="clearfix flex-container">
+      
+      <div id="ratingModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>Betygsätt filmen</h2>
+            <div id="starRating">
+                <button class="star" data-rating="1">&#9733;</button>
+                <button class="star" data-rating="2">&#9733;</button>
+                <button class="star" data-rating="3">&#9733;</button>
+                <button class="star" data-rating="4">&#9733;</button>
+                <button class="star" data-rating="5">&#9733;</button>
+            </div>
+            <button id="submitRating">Skicka betyg</button>
+        </div>
+    </div>
+    
+      <section class="listOfTen flex-container">
+        <div class="flex-container">
+          <h3 class="subHeader">Populära TV serier</h3>
+        </div>
+        <div class="flex-container top10ListSeries">
+          
+        </div>
+      </section>
+
+
+    </main>
+
+    <footer>
+      <a href="#">Kontakta oss</a>
+      <h4>@2024Cineisterna</h4>
+  </footer>
+
+  
+
+</body>
+</html>

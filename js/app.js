@@ -1,16 +1,30 @@
 
-import { getMovies } from "../modules/mockData.js";
-import{generateMovies} from "../modules/ui.js";
+import { user } from "../modules/config.js";
+import { generateUserContributions } from "../modules/ui.js";
+import{createUser, generateMovies} from "../modules/ui.js";
 import{generateUserStatistcs} from "../modules/ui.js";
 import {generateFilters} from "../modules/ui.js";
-let movies = [];
+import {filterMoviesBySearchInput} from "../modules/ui.js"
+import {topRatedMovies} from "../modules/cmdb.js"
+
+ let userInfo = user.value;
+ let movies = [];
+ let topRated = [];
 
 document.addEventListener("DOMContentLoaded", async () => {
-  movies = await getMovies();
-  await generateMovies(movies);
-  await generateUserStatistcs(movies);
-  await generateFilters(movies);
+  
+ 
+  createUser(userInfo);
+  let userId = userInfo.id 
+  movies = await generateUserContributions(userId);
+  console.log("filmer", movies);
+  generateMovies(movies);
+  generateUserStatistcs(movies);
+  generateFilters(movies);
+  filterMoviesBySearchInput(movies);
+  
 });
+
 
  
 

@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE-edge">
-    <meta name="viewport" content="width-device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="stylesheet.css">
     <script src="https://kit.fontawesome.com/74e6607f1f.js" crossorigin="anonymous"></script>
+    <script type="module" src="js/searchApp.js"></script>
     <title>Cineisternas filmklubb</title>
 </head>
 
@@ -24,8 +25,13 @@
 
     </div>  
     <div class="flex-container searchAndSettings">
-      <ul>
-            <li><a href="userPage.html">Profil</a></li>
+      <ul class="menu">
+        <li>
+          <a href="userPage.html">
+              <img src="Images/profilbild.png" alt="Profilbild" class="profile-picture">
+              Profil
+          </a>
+      </li>
       </ul>
       <div class="searchbar">
         <a href="search.html">
@@ -93,7 +99,7 @@
             </div>
 
             <main class="mainSearch">
-                <div class="resultMovies flex-container">
+                <div class="resultMovies flex-container" id="searchResults">
                   <article class="flex-container " >
                     <div class="flex-container flex-item" id="searchResu">
                       <img src="Images/NottingHill.jpg">
