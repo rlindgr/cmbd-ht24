@@ -1,6 +1,8 @@
 import { getMovieOnId } from "./cmdb.js";
 import { createStars } from "./data.js";
 import { getMediaOnIdOmdb } from "./omdb.js";
+import { configOmdb } from "./config.js";
+const baseUrl = configOmdb.omdbApi.baseUrl;
 
 
 async function getMovieData(id) {
@@ -16,7 +18,7 @@ async function getMovieData(id) {
 
 export function generateMovies(movies) {
     let arrayMovies = movies.Search;
-    console.log(arrayMovies); 
+    console.log("sökta filmer", arrayMovies); 
     const container = document.getElementById("searchResults");
     container.innerHTML = ""; 
     
@@ -74,3 +76,66 @@ export function generateMovies(movies) {
         container.appendChild(article);
     }
 }
+
+export function searchFunction() {
+    // Hämta alla sökformulär på sidan
+    const searchForms = document.querySelectorAll(".searchForm");
+  
+    // Loopa igenom varje sökformulär och lägg till en eventlyssnare
+    searchForms.forEach(form => {
+      form.querySelector(".searchInput").addEventListener("input", async function (e) {
+        const query = e.target.value.trim();
+        const suggestionsBox = form.querySelector(".searchSuggestions");
+  
+        if (query) { 
+          try {
+            const response = await fetch(`${baseUrl}s=${query}`);
+            console.log("sökning svar", response);
+            
+            if (response.ok) {
+              const data = await response.json();
+              
+              if (data.Response === "True") {
+                displaySuggestions([data], suggestionsBox); 
+              } else {
+                suggestionsBox.innerHTML = "<div>No results found</div>"; 
+                suggestionsBox.style.display = "block";
+              }
+            }
+          } catch (error) {
+            console.error("Network error occurred:", error);
+          }
+        } else {
+          suggestionsBox.style.display = "none"; 
+        }
+      });
+    });
+  
+    // Hantera submit-formulär på varje sökformulär
+    const searchFormsSubmit = document.querySelectorAll(".searchForm");
+    searchFormsSubmit.forEach(form => {
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const query = form.querySelector(".searchInput").value.trim();
+        if (query) {
+            console.log(query);
+          window.location.href = `search.html?query=${encodeURIComponent(query)}`;
+        }
+      });
+    });
+  }
+  
+  function displaySuggestions(results, suggestionsBox) {
+    suggestionsBox.innerHTML = "";
+    results.forEach(movie => {
+      const div = document.createElement("div");
+      div.innerText = movie.Title;
+      
+      div.addEventListener("click", () => {
+        window.location.href = `Details.html?id=${movie.imdbID}`;
+      });
+  
+      suggestionsBox.appendChild(div);
+    });
+    suggestionsBox.style.display = "block";
+  }

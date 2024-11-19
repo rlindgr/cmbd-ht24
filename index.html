@@ -20,8 +20,7 @@
     <div class="flex-container pages">
       <ul class="menu ">
         <li><a href="Index.html">Hem</a></li>
-            <li><a href="Movies.html">Filmer</a></li>
-            <li><a href="Series.html">Serier</a></li>
+           
       </ul>
 
       <div class="hamburger">
@@ -41,16 +40,23 @@
         <form article id="searchForm">
           <input type="text" id="searchInput" placeholder="Sök..." name="search" autocomplete="off">
         </form>
-        <div id="searchSuggestions" class="suggestions"></div>
       </div>
     </div>
     </nav>
+    
+    <div id="searchSuggestions" class="suggestions"></div>
+
+    <div id="alertBox" class="alert-box">
+      <button class="close-btn" id="btnCloseAlert">X</button>
+      <p id="varningsText"></p>
+  </div>
 
     <div id="ratingModal" class="modal">
       <div class="modal-content">
           <span class="close" id="closeModal">&times;</span>
           <h2>Betygsätt filmen</h2>
           <div id="starRating">
+              <button class="star negative" data-rating="-1">&#9733;</button>
               <button class="star" data-rating="1">&#9733;</button>
               <button class="star" data-rating="2">&#9733;</button>
               <button class="star" data-rating="3">&#9733;</button>

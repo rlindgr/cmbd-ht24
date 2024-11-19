@@ -15,8 +15,7 @@
     <div class="flex-container pages">
       <ul class="menu ">
         <li><a href="Index.html">Hem</a></li>
-            <li><a href="Movies.html">Filmer</a></li>
-            <li><a href="Series.html">Serier</a></li>
+            
       </ul>
 
       <div class="hamburger">
@@ -32,11 +31,15 @@
           </a>
       </li>
       </ul>
-      <section class="searchbar">
-        <input type="text" name="search-input" id="search" placeholder="Sök..." oninput="performSearch(event)" />
-      </section>
+      <div class="searchbar">
+        <form article id="searchForm">
+          <input type="text" id="searchInput" placeholder="Sök..." name="search" autocomplete="off">
+        </form>
+      </div>
     </div>
-  </nav>
+    </nav>
+    
+    <div id="searchSuggestions" class="suggestions"></div>
 
         <main class="flex-container userPage" >
           <div class="search-container"></div>
@@ -69,11 +72,11 @@
               </div>
             </div>
 
-            <div class="flex-container rated">
+            <div class="flex-container rated" id="containerRated">
               <h3 id="ratedItems">Reviews</h3>
   
-              <div class="flex-container" id="containerRatedMovies">
-
+              <div class="flex-container" id="myMovies">
+                <p>Här ska finnas text</p>
               </div>
             </div>
           </div>

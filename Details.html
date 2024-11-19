@@ -15,8 +15,7 @@
         <div class="flex-container pages">
           <ul class="menu ">
             <li><a href="Index.html">Hem</a></li>
-                <li><a href="Movies.html">Filmer</a></li>
-                <li><a href="Series.html">Serier</a></li>
+               
           </ul>
     
           <div class="hamburger">
@@ -33,71 +32,69 @@
           </li>
           </ul>
           <div class="searchbar">
-            <a href="search.html">
-                <form article="searchbar">
-                    <input type="text" placeholder="Sök..." name="search">
-                </form>
-            </a>
-        </div>
+            <form article id="searchForm">
+              <input type="text" id="searchInput" placeholder="Sök..." name="search" autocomplete="off">
+            </form>
+          </div>
         </div>
         </nav>
-        <div id="searchResults" class="search-results-container"></div>
+        
+        <div id="searchSuggestions" class="suggestions"></div>
+        
     <main>
         <div class="search-container">
             <section class="flex-container" id="detailsMovie">
                 <article class="topMovie flex-container">
                     <div class="flex-container flex-item">
-                        <img src="Images/NottingHill.jpg">
+                        
                       </div>
                     <div class="flex-container movieInfoAndRating">
-                    <h3>Notting Hill</h3>
+                    
                     <div class="shortInfoOnMovie flex-container">
-                    <p class="flex-item">Romance Comedy</p>
-                      <p class="flex-item"> 1999</p>
+                    
                       
                     </div>
                       
-                      <p >William Thacker is a London bookstore owner whose humdrum existence is thrown into romantic turmoil when famous American actress Anna Scott appears in his shop. A chance encounter over spilled orange juice leads to a kiss that blossoms into a full-blown affair. As the average bloke and glamorous movie star draw closer and closer together, they struggle to reconcile their radically different lifestyles in the name of love.
+                     
                       
                       <div class="btnRating flex-container">
-                        <button class="btnRating-1" type="button">-1</button>
-                        <button class="btnRating1" type="button">1</button>
-                        <button class="btnRating2" type="button">2</button>
-                        <button class="btnRating3" type="button">3</button>
-                        <button class="btnRating4" type="button">4</button>
-                        <button class="btnRating5" type="button">5</button>
+                       
                       </div>
                     </div>
                 </article>
             </section>
     
             <section class="flex-container actors" id="actorsDiv">
-                <div class="flex-container actor">
-                    <img src="Images/JuliaRoberts.jpg">
-                    <p>Julia Roberts</p>
-                </div>
-                <div class="flex-container actor">
-                    <img src="Images/HughGrant.jpg">
-                    <p>Hugh Grant</p>
-                </div>
-                <div class="flex-container actor">
-                    <img src="Images/GinaMckee.jpg">
-                    <p>Gina Mckee</p>
-                </div>
+                
             </section>
-            
+            <div id="messageBox"></div>
+
+            <div id="alertBox" class="alert-box">
+              <button class="close-btn" id="btnCloseAlert">x</button>
+              <p id="varningsText"></p>
+          </div>
+
+          <div id="customConfirm" class="alert-box">
+            <div class="modal-content">
+              <p>Är du säker på att du vill ta bort din recension?</p>
+              <button id="confirmYes">Ja</button>
+              <button id="confirmNo">Nej</button>
+            </div>
+          </div>
+
             <div class="flex-container rewiev">
-                <section class="recensionMovie flex-container">
-                    <h2>Skriv en recension</h2>
+                <section class="recensionMovie flex-container" id="containerForm">
+                    <h2 id="formHeader">Skriv en recension</h2>
+                    
                     <div class="recensionForm">
                         <form action="/action_page.php" id="reviewForm">
-                            <div class="btnRating flex-container" id="setCmdbScore">
-                                <button class="btnRating-1" type="button">-1</button>
-                                <button class="btnRating1" type="button">1</button>
-                                <button class="btnRating2" type="button">2</button>
-                                <button class="btnRating3" type="button">3</button>
-                                <button class="btnRating4" type="button">4</button>
-                                <button class="btnRating5" type="button">5</button>
+                            <div class="containerBtnRating flex-container" id="setCmdbScore">
+                                <button class="btnRating" id="btnNegative" data-rating="-1">-1</button>
+                                <button class="btnRating" id="btn1" data-rating="1">1</button>
+                                <button class="btnRating" id="btn2" data-rating="2">2</button>
+                                <button class="btnRating" id="btn3" data-rating="3">3</button>
+                               <button class="btnRating" id="btn4" data-rating="4">4</button>
+                               <button class="btnRating" data-rating="5">5</button>
                               </div>
                             <label for="Titel">Titel</label>
                             <input type="text" id="titleTxt" name="nameTxt" placeholder="Titel på din recension...">

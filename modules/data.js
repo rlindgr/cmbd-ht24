@@ -1,15 +1,32 @@
 import {generateMovies} from "./ui.js"
+import { openRatingModal } from "./uiIndex.js";
  
 
-export function averageSum(movies){
-    let sum = 0;
-    for(const movie of movies) {
-        sum += movie.contribution.cmdb_score;
-   }
-   console.log(sum);
-   let averageScore = sum / movies.length;
-   return averageScore;
+export function averageSum(movies) {
+  let sum = 0;
+  let validCount = 0;  // För att hålla reda på hur många giltiga poäng vi har
+
+  for (const movie of movies) {
+      // Kontrollera om cmdb_score är ett giltigt tal
+      const score = movie.contribution?.cmdb_score;
+
+      if (typeof score === 'number' && !isNaN(score)) {  // Säkerställ att det är ett giltigt nummer
+          sum += score;
+          validCount++;  // Öka räknaren för giltiga poäng
+      }
+  }
+
+  // Om vi har giltiga filmer att räkna med, beräkna medelvärdet
+  if (validCount > 0) {
+      const averageScore = sum / validCount;
+      console.log(averageScore);  // Logga det beräknade medelvärdet
+      return averageScore;
+  } else {
+      console.log("Inga giltiga poäng att beräkna.");
+      return 0;  // Om inga giltiga poäng fanns, returnera 0
+  }
 }
+
 
 export function createStars(cmdbScore, isClickable = false) {
   const starsDiv = document.createElement("div");
@@ -39,24 +56,8 @@ export function createStars(cmdbScore, isClickable = false) {
   return starsDiv;
 }
 
-function openRatingModal(event) {
-  const ratingModal = document.getElementById("ratingModal");
-  ratingModal.style.display = "block";
-  
-  // Spara filmen som klickades på så vi kan identifiera den senare
-  ratingModal.dataset.movieId = event.target.closest("article").id;
 
-  // Pre-selektera stjärnorna i modalen baserat på befintligt betyg
-  const existingRating = event.target.dataset.rating || 0;
-  const stars = document.querySelectorAll("#starRating .star");
-  stars.forEach(star => {
-      if (parseInt(star.dataset.rating) <= existingRating) {
-          star.classList.add("selected");
-      } else {
-          star.classList.remove("selected");
-      }
-  });
-}
+
 function closeModal() {
   // Hitta modalen
   const ratingModal = document.getElementById("ratingModal");
@@ -72,12 +73,13 @@ function closeModal() {
 
 export function imageLink(movies) {
     let averageScore = averageSum(movies);
+    console.log("medel Score imageLink", averageScore);
     let imageLink;
 
   if (averageScore < 0) {
     imageLink = "https://studenter.miun.se/~jonlun2300/uppgift2/poppe0.png";
   }
-  if (averageScore > 0 && averageScore < 1) {
+  if (averageScore >= 0 && averageScore < 1) {
     imageLink = "https://studenter.miun.se/~jonlun2300/uppgift2/poppe1.png";
   }
   if (averageScore >= 1 && averageScore < 2) {

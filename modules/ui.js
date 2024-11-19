@@ -11,11 +11,11 @@ import { getMovieOnId } from "./cmdb.js";
 
 export async function generateGenres(){
     const genres = await getGenres();
-    console.log(genres);
+    
 }
 
 export async function createUser(userInfo){
-    const container = document.getElementById("userContainer");
+    const container = document.querySelector(".userInfo");
     container.innerHTML="";
 
     const div = document.createElement("div");
@@ -40,26 +40,19 @@ export async function createUser(userInfo){
 export async function generateUserContributions(userId) {
     const contribution = await getUserContribution(userId);
     let movies = contribution.value;
+    console.log("filmer som har bidragits till", movies);
     const contributedMovies = [];
-    console.log("filmer som bidragits till", movies);
 
     for(const movie of movies) {
         let movieId = movie.imdb_id;
         let currentMovie = await getMovieOnId(movieId);
         contributedMovies.push(currentMovie);
     }
-
-    generateMovies(contributedMovies);
-    console.log("lista av filmer", contributedMovies)
     return contributedMovies;
 }
 
 export function generateMovies(movies){
-    const container = document.getElementById("containerRatedMovies");
-    if (!container) {
-        console.error("Elementet med id 'containerRatedMovies' hittades inte.");
-        return;
-    }
+    const container = document.getElementById("myMovies");
     container.innerHTML="";
 
    for (const movie of movies) {
@@ -73,7 +66,8 @@ export function generateMovies(movies){
 
     const articleData = document.createElement("div");
     articleData.classList.add("flex-container", "ratings-wrapper");
-    const imdbScore = movie.contribution.cmdb_score;
+    const imdbScore = movie.cmdb_score;
+    
     const starDiv = createStars(imdbScore);
    
     article.appendChild(image);
@@ -111,21 +105,71 @@ export async function generateFilters(movies) {
     genresPercent(movies);
 }
 
-export function filterMoviesBySearchInput(movies){
-    const searchInput = document.querySelector("#search");
-    const searchResultContainer = document.querySelector("#searchResults");
 
-    searchInput.addEventListener("input", () => {
-        const query = searchInput.value.toLowerCase();
-        searchResultContainer.innerHTML = "";
-        if(!query) return;
-        const filteredMovies = movies.filter((movie) => 
-        movie.title.toLowerCase().includes(query)
-    );
-    generateMoviesOnSearch(filteredMovies, query);
-    })
-}
 
+
+export function searchFunction() {
+    // Hämta alla sökformulär på sidan
+    const searchForms = document.querySelectorAll(".searchForm");
+  
+    // Loopa igenom varje sökformulär och lägg till en eventlyssnare
+    searchForms.forEach(form => {
+      form.querySelector(".searchInput").addEventListener("input", async function (e) {
+        const query = e.target.value.trim();
+        const suggestionsBox = form.querySelector(".searchSuggestions");
+  
+        if (query) { 
+          try {
+            const response = await fetch(`${baseUrl}s=${query}`);
+            
+            
+            if (response.ok) {
+              const data = await response.json();
+              
+              if (data.Response === "True") {
+                displaySuggestions([data], suggestionsBox); 
+              } else {
+                suggestionsBox.innerHTML = "<div>No results found</div>"; 
+                suggestionsBox.style.display = "block";
+              }
+            }
+          } catch (error) {
+            console.error("Network error occurred:", error);
+          }
+        } else {
+          suggestionsBox.style.display = "none"; 
+        }
+      });
+    });
+  
+    // Hantera submit-formulär på varje sökformulär
+    const searchFormsSubmit = document.querySelectorAll(".searchForm");
+    searchFormsSubmit.forEach(form => {
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const query = form.querySelector(".searchInput").value.trim();
+        if (query) {
+          window.location.href = `search.html?query=${encodeURIComponent(query)}`;
+        }
+      });
+    });
+  }
+  
+  function displaySuggestions(results, suggestionsBox) {
+    suggestionsBox.innerHTML = "";
+    results.forEach(movie => {
+      const div = document.createElement("div");
+      div.innerText = movie.Title;
+      
+      div.addEventListener("click", () => {
+        window.location.href = `Details.html?id=${movie.imdbID}`;
+      });
+  
+      suggestionsBox.appendChild(div);
+    });
+    suggestionsBox.style.display = "block";
+  }
+  
 
 
 

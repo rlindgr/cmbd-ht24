@@ -1,6 +1,8 @@
 import {createStars} from "./data.js"
 import { configOmdb } from "./config.js";
+import { sendRate } from "./cmdb.js";
 const baseUrl = configOmdb.omdbApi.baseUrl;
+
 
 
 
@@ -33,7 +35,7 @@ export function generateMovies(movies){
         const articleData = document.createElement("div");
         articleData.classList.add("flex-container", "ratings-wrapper");
         const imdbScore = movie.cmdb_score;
-        const starDiv = createStars(imdbScore);
+        const starDiv = createStars(imdbScore, true);
 
         
         divInfo.appendChild(title);
@@ -77,7 +79,7 @@ export function generateSeries(movies){
         const articleData = document.createElement("div");
         articleData.classList.add("flex-container", "ratings-wrapper");
         const imdbScore = movie.cmdb_score;
-        const starDiv = createStars(imdbScore);
+        const starDiv = createStars(imdbScore, true);
 
         
         divInfo.appendChild(title);
@@ -153,72 +155,195 @@ export function generateTopList(movies) {
     }
 }
 
-function closeModal() {
-    const ratingModal = document.getElementById("ratingModal");
-    ratingModal.style.display = "none";
-    const stars = document.querySelectorAll("#starRating .star");
-    stars.forEach(star => star.classList.remove("selected"));
+export function openRatingModal(event) {
+  const ratingModal = document.getElementById("ratingModal");
+  ratingModal.style.display = "block";
+
+  ratingModal.dataset.movieId = event.target.closest("article").id;
+
+  const stars = document.querySelectorAll("#starRating .star");
+  
+  stars.forEach(star => {
+    star.classList.remove("selected");
+    star.classList.remove("selected-red");
+    star.style.color = "lightgray";
+  });
+
+  const currentRating = parseInt(event.target.dataset.rating) || 0;
+  console.log("currentRating", currentRating);
+ 
+  starSelection();
+  document.getElementById("closeModal").addEventListener("click", closeModal);
+  document.getElementById("submitRating").addEventListener("click", sendRating);
 }
 
-document.getElementById("closeModal").addEventListener("click", closeModal);
+export function starSelection() {
+  const starsInModal = document.querySelectorAll("#starRating .star");
+  const ratingModal = document.getElementById("ratingModal");
 
-export function searchFunction() {
-    document.getElementById("searchInput").addEventListener("input", async function (e) {
-      const query = e.target.value.trim();
-      const suggestionsBox = document.getElementById("searchSuggestions");
-  
-      if (query) { // Check if the query is not empty
-        try {
-          // Use the 't' parameter for searching by movie title
-          const response = await fetch(`${baseUrl}s=${query}`);
-          console.log("sökning svar", response);
-          
-          if (response.ok) {
-            const data = await response.json();
-            
-            // If the movie is found, display it, otherwise show no results
-            if (data.Response === "True") {
-              displaySuggestions([data]); // Send the movie data in an array for display
-            } else {
-              suggestionsBox.innerHTML = "<div>No results found</div>"; // Show a "no results" message
-              suggestionsBox.style.display = "block";
-            }
-          }
-        } catch (error) {
-          console.error("Network error occurred:", error);
+  starsInModal.forEach(star => {
+    star.addEventListener("click", (event) => {
+      const selectedRating = parseInt(event.target.getAttribute("data-rating"));
+
+      // Store the selected rating in the modal's dataset
+      ratingModal.dataset.selectedRating = selectedRating;
+      console.log("Selected rating inside loop:", selectedRating);
+
+      // Reset all stars
+      starsInModal.forEach(s => {
+        s.classList.remove("selected");
+        s.classList.remove("selected-red");
+        s.style.color = "lightgray";
+      });
+
+      // Highlight stars up to the selected one
+      starsInModal.forEach(s => {
+        const starRating = parseInt(s.getAttribute("data-rating"));
+        if (starRating <= selectedRating) {
+          s.classList.add("selected");
+          s.style.color = "gold";
         }
-      } else {
-        suggestionsBox.style.display = "none"; // Hide suggestions when the input is empty
+      });
+
+      // Handle special cases for ratings (e.g., "red star")
+      if (selectedRating < 1) { 
+        starsInModal[0].classList.add("selected-red");
+        starsInModal[0].style.color = "red";
       }
     });
+  });
+
 }
 
-function displaySuggestions(results) {
-    const suggestionsBox = document.getElementById("searchSuggestions");
-    suggestionsBox.innerHTML = "";
-    results.forEach(movie => {
-      const div = document.createElement("div");
-      div.innerText = movie.Title;
-      
-      // Om användaren klickar på ett förslag, omdirigerar till Details.html med IMDb-ID
-      div.addEventListener("click", () => {
-        window.location.href = `Details.html?id=${movie.imdbID}`;
-      });
+function sendRating() {
+  const ratingModal = document.getElementById("ratingModal");
+  const score = ratingModal.dataset.selectedRating;
+  const id = ratingModal.dataset.movieId;
   
-      suggestionsBox.appendChild(div);
-    });
-    suggestionsBox.style.display = "block";
+
+  if (!score) {
+    console.log("!Score")
+    const alertBox = document.getElementById("alertBox"); 
+                  alertBox.style.display = "block";
+                  let txtVarning = document.createElement("p");
+                  txtVarning.setAttribute("id", "varningsText");
+                  txtVarning.textContent = "Du måste fylla i alla fälten";
+                  alertBox.appendChild(txtVarning);
+                  document.getElementById("btnCloseAlert").addEventListener("click", () => {
+                    const alertBox = document.getElementById("alertBox");
+                    alertBox.style.display = "none"; // Dölj varningsrutan
+                });
+   
+    return;
   }
 
+  console.log("sendRating", id, score);
+  sendRate(id, score);
+  alertBox.style.display = "none";
+  const txtVarning = document.getElementById("varningsText");
+  if (txtVarning) {
+    txtVarning.remove(); // Ta bort varningstexten från DOM
+  }
 
+  // Uppdatera modalens innehåll
+  const modalContent = document.createElement("div");
+  modalContent.classList.add("modal-content");
 
-  document.getElementById("searchForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-    const query = document.getElementById("searchInput").value.trim();
-    if (query) {
-      window.location.href = `search.html?query=${encodeURIComponent(query)}`;
+  const closeModalButton = document.createElement("span");
+  closeModalButton.id = "closeModal";
+  closeModalButton.classList.add("close");
+  closeModalButton.innerHTML = "&times;";
+  closeModalButton.addEventListener("click", closeModal)
+
+  const thankYouMessage = document.createElement("h3");
+  thankYouMessage.textContent = "Tack för ditt betyg!";
+
+  const starContainer = document.createElement("div");
+  starContainer.id = "thankYouStars";
+
+  // Skapa stjärnorna för feedback
+  for (let i = 1; i <= 5; i++) {
+    const star = document.createElement("span");
+    star.classList.add("star");
+    star.textContent = "★"; // Fyllig stjärna
+
+    if (i <= score) {
+      star.style.color = "gold";
+    } else {
+      star.style.color = "lightgray";
     }
-  });
+    starContainer.appendChild(star);
+  }
+
+  // Hantera röd stjärna för betyg -1
+  if (score < 1) {
+    starContainer.innerHTML = ""; // Rensa stjärnor
+    const redStar = document.createElement("span");
+    redStar.textContent = "★";
+    redStar.style.color = "red";
+    redStar.classList.add("star");
+    starContainer.appendChild(redStar);
+  }
+
+  ratingModal.innerHTML = "";
+  modalContent.appendChild(closeModalButton);
+  modalContent.appendChild(thankYouMessage);
+  modalContent.appendChild(starContainer);
+  ratingModal.appendChild(modalContent);
+}
+
+export function closeAlert() {
+  document.getElementById("btnCloseAlert").addEventListener("click", () => {
+    const alertBox = document.getElementById("alertBox");
+    alertBox.style.display = "none"; // Dölj varningsrutan
+});
+}
+
+function closeModal() {
+  const ratingModal = document.getElementById("ratingModal");
+  const alertBox = document.getElementById("alertBox"); 
+  ratingModal.style.display = "none";
+  alertBox.style.display = "none";
+  const txtVarning = document.getElementById("varningsText");
+  if (txtVarning) {
+    txtVarning.remove(); // Ta bort varningstexten från DOM
+  }
+
+  // Återställ innehållet
+  ratingModal.innerHTML = `
+    <div class="modal-content">
+      <span class="close" id="closeModal">&times;</span>
+      <h2>Betygsätt filmen</h2>
+      <div id="starRating">
+          <button class="star negative" data-rating="-1">&#9733;</button>
+          <button class="star" data-rating="1">&#9733;</button>
+          <button class="star" data-rating="2">&#9733;</button>
+          <button class="star" data-rating="3">&#9733;</button>
+          <button class="star" data-rating="4">&#9733;</button>
+          <button class="star" data-rating="5">&#9733;</button>
+      </div>
+      <button id="submitRating">Skicka betyg</button>
+    </div>
+  `;
+
+  // Återkoppla funktioner
+  document.getElementById("closeModal").addEventListener("click", closeModal);
+  document.getElementById("submitRating").addEventListener("click", sendRating);
+  starSelection(); // Förnya stjärninteraktioner
+}
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
 
 
