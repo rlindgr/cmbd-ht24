@@ -22,7 +22,7 @@ function uniqueGenres (allGenresData) {
 }
 
 //https://stackoverflow.com/questions/66455933/javascript-filter-and-some-on-array-of-objects
-function filterOnGenre(movies, genreId) {
+export function filterOnGenre(movies, genreId) {
     const filteredMovies = movies.filter((movie) =>
     movie.genres.some(genre => genre.id === genreId)
     );

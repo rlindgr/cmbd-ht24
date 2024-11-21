@@ -18,8 +18,9 @@ export function averageSum(movies) {
 
   // Om vi har giltiga filmer att räkna med, beräkna medelvärdet
   if (validCount > 0) {
-      const averageScore = sum / validCount;
-      console.log(averageScore);  // Logga det beräknade medelvärdet
+      let averageScore = sum / validCount;  // Logga det beräknade medelvärdet
+      averageScore = (Math.round(averageScore * 10) / 10).toFixed(1);
+      console.log("avrundat", averageScore)
       return averageScore;
   } else {
       console.log("Inga giltiga poäng att beräkna.");
@@ -57,23 +58,8 @@ export function createStars(cmdbScore, isClickable = false) {
 }
 
 
-
-function closeModal() {
-  // Hitta modalen
-  const ratingModal = document.getElementById("ratingModal");
-  
-  // Sätt modalens display till "none" för att dölja den
-  ratingModal.style.display = "none";
-  
-  // Rensa stjärnmarkeringarna i modalen (om du vill att betygsvalen ska återställas varje gång)
-  const stars = document.querySelectorAll("#starRating .star");
-  stars.forEach(star => star.classList.remove("selected"));
-}
-
-
 export function imageLink(movies) {
     let averageScore = averageSum(movies);
-    console.log("medel Score imageLink", averageScore);
     let imageLink;
 
   if (averageScore < 0) {

@@ -40,7 +40,6 @@ export async function createUser(userInfo){
 export async function generateUserContributions(userId) {
     const contribution = await getUserContribution(userId);
     let movies = contribution.value;
-    console.log("filmer som har bidragits till", movies);
     const contributedMovies = [];
 
     for(const movie of movies) {
@@ -62,6 +61,8 @@ export function generateMovies(movies){
 
     const image = document.createElement("img");
     image.src = `${"https://image.tmdb.org/t/p/original"}${movie.poster_path}`;
+    console.log("bilden skapas korrekt", image);
+   
     
 
     const articleData = document.createElement("div");

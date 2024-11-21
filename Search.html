@@ -15,8 +15,7 @@
     <div class="flex-container pages">
       <ul class="menu ">
         <li><a href="Index.html">Hem</a></li>
-            <li><a href="#">Filmer</a></li>
-            <li><a href="#">Serier</a></li>
+            
       </ul>
 
       <div class="hamburger">
@@ -28,74 +27,24 @@
       <ul class="menu">
         <li>
           <a href="userPage.html">
-              <img src="Images/profilbild.png" alt="Profilbild" class="profile-picture">
-              Profil
+            <i class="fa-solid fa-user"></i>
           </a>
       </li>
       </ul>
       <div class="searchbar">
-        <form article class="searchForm">
-          <input type="text" class="searchInput" placeholder="Sök..." name="search" autocomplete="off">
+        <form article id="searchForm">
+          <input type="text" id="searchInput" placeholder="Sök..." name="search" autocomplete="off">
         </form>
-        <div class="searchSuggestions" class="suggestions"></div>
       </div>
     </div>
     </nav>
-
+    
+    <div id="searchSuggestions" class="suggestions"></div>
             <header id="searcHeader">
-                <h1>Sökresultat för "Notting Hill"</h1>
+                <h1>Sökresultat</h1>
             </header>
     
-            <div class="filter flex-container">
-             <label for="category"></label>
-                <div class="flex-container filter">
-                  <select class="filterSearch" name="category">
-                    <option value="-">Genere</option>
-                    <option value="action">Action</option>
-                    <option value="family">Barn och familj</option>
-                    <option value="drama">Drama</option>
-                    <option value="fantasy">Fantasy</option>
-                    <option value="musicals">Musikaler</option>
-                    <option value="horror">Skräck</option>
-                    <option value="thriller">Thriller</option>
-                </select>
-                </div>
-    
-                <label for="language"></label>
-                <div class="flex-container filter">
-                  <select class="filterSearch" name="language">
-                    <option value="-">Språk</option>
-                    <option value="english">Engelska</option>
-                    <option value="swedish">Svenska</option>
-                    <option value="danish">Danska</option>
-                    <option value="norwegian">Norska</option>
-                </select>
-                </div>
-
-                <label for="Media"></label>
-                <div class="flex-container filter">
-                  <select class="filterSearch" name="media">
-                    <option value="-">Typ av media</option>
-                    <option value="film">Film</option>
-                    <option value="serie">Serie</option>
-                    <option value="stand-up">Stå up komik</option>
-                </select>
-                </div>
-
-                <label for="Betyg"></label>
-                <div class="flex-container filter">
-                  <select class="filterSearch" name="grade">
-                    <option value="-">Betyg</option>
-                    <option value="-1">-1</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-                </div>
-    
-            </div>
+            
 
             <main class="mainSearch">
                 <div class="resultMovies flex-container" id="searchResults">

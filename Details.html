@@ -74,11 +74,11 @@
               <p id="varningsText"></p>
           </div>
 
-          <div id="customConfirm" class="alert-box">
-            <div class="modal-content">
+          <div id="customConfirm" class="confirm">
+            <div class="confirm-content">
               <p>Är du säker på att du vill ta bort din recension?</p>
-              <button id="confirmYes">Ja</button>
-              <button id="confirmNo">Nej</button>
+              <button type="button" id="confirmYes">Ja</button>
+              <button type="button" id="confirmNo">Nej</button>
             </div>
           </div>
 
@@ -87,7 +87,7 @@
                     <h2 id="formHeader">Skriv en recension</h2>
                     
                     <div class="recensionForm">
-                        <form action="/action_page.php" id="reviewForm">
+                        <form  id="reviewForm">
                             <div class="containerBtnRating flex-container" id="setCmdbScore">
                                 <button class="btnRating" id="btnNegative" data-rating="-1">-1</button>
                                 <button class="btnRating" id="btn1" data-rating="1">1</button>

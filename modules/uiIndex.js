@@ -1,6 +1,7 @@
 import {createStars} from "./data.js"
 import { configOmdb } from "./config.js";
-import { sendRate } from "./cmdb.js";
+import { getUserContribution, sendRate } from "./cmdb.js";
+import { alertUser } from "./alertMessage.js";
 const baseUrl = configOmdb.omdbApi.baseUrl;
 
 
@@ -36,8 +37,8 @@ export function generateMovies(movies){
         articleData.classList.add("flex-container", "ratings-wrapper");
         const imdbScore = movie.cmdb_score;
         const starDiv = createStars(imdbScore, true);
-
         
+
         divInfo.appendChild(title);
         divInfo.appendChild(starDiv);
        divInfo.appendChild(tagline);
@@ -155,64 +156,87 @@ export function generateTopList(movies) {
     }
 }
 
-export function openRatingModal(event) {
+export async function openRatingModal(event) {
   const ratingModal = document.getElementById("ratingModal");
   ratingModal.style.display = "block";
-
   ratingModal.dataset.movieId = event.target.closest("article").id;
+  const id = ratingModal.dataset.movieId;
+  const contributedMoviesArray = await getUserContribution();
+  let contributedMovies = contributedMoviesArray.value;
+  console.log("bidragna filmer för rating", contributedMovies);
+    let hasContributed = false;
+    contributedMovies.forEach(movie => {
+      if(movie.imdb_id === id) {hasContributed = true};
+      
+    });
 
-  const stars = document.querySelectorAll("#starRating .star");
+    if(!hasContributed) {
+      const stars = document.querySelectorAll("#starRating .star");
   
-  stars.forEach(star => {
-    star.classList.remove("selected");
-    star.classList.remove("selected-red");
-    star.style.color = "lightgray";
-  });
+      stars.forEach(star => {
+        star.classList.remove("selected");
+        star.classList.remove("selected-red");
+        star.style.color = "lightgray";
+      });
 
-  const currentRating = parseInt(event.target.dataset.rating) || 0;
-  console.log("currentRating", currentRating);
- 
-  starSelection();
-  document.getElementById("closeModal").addEventListener("click", closeModal);
-  document.getElementById("submitRating").addEventListener("click", sendRating);
+      const currentRating = parseInt(event.target.dataset.rating) || 0;
+      console.log("currentRating", currentRating);
+    
+      starSelection();
+      document.getElementById("closeModal").addEventListener("click", closeModal);
+      document.getElementById("submitRating").addEventListener("click", sendRating);
+    }
+
+    if(hasContributed) {
+      const starContainer = document.getElementById("starRating");
+      starContainer.innerHTML = "";
+      const message = document.createElement("p");
+      message.textContent = "Du har redan betygsatt denna film/serie";
+      starContainer.appendChild(message);
+
+      const btnSubmit = document.getElementById("submitRating");
+      btnSubmit.classList.add("hidden");
+      document.getElementById("closeModal").addEventListener("click", closeModal);
+      
+    }
 }
 
 export function starSelection() {
   const starsInModal = document.querySelectorAll("#starRating .star");
   const ratingModal = document.getElementById("ratingModal");
 
-  starsInModal.forEach(star => {
-    star.addEventListener("click", (event) => {
-      const selectedRating = parseInt(event.target.getAttribute("data-rating"));
-
-      // Store the selected rating in the modal's dataset
-      ratingModal.dataset.selectedRating = selectedRating;
-      console.log("Selected rating inside loop:", selectedRating);
-
-      // Reset all stars
-      starsInModal.forEach(s => {
-        s.classList.remove("selected");
-        s.classList.remove("selected-red");
-        s.style.color = "lightgray";
+   
+      starsInModal.forEach(star => {
+        star.addEventListener("click", (event) => {
+          const selectedRating = parseInt(event.target.getAttribute("data-rating"));
+    
+          // Store the selected rating in the modal's dataset
+          ratingModal.dataset.selectedRating = selectedRating;
+          console.log("Selected rating inside loop:", selectedRating);
+    
+          // Reset all stars
+          starsInModal.forEach(s => {
+            s.classList.remove("selected");
+            s.classList.remove("selected-red");
+            s.style.color = "lightgray";
+          });
+    
+          // Highlight stars up to the selected one
+          starsInModal.forEach(s => {
+            const starRating = parseInt(s.getAttribute("data-rating"));
+            if (starRating <= selectedRating) {
+              s.classList.add("selected");
+              s.style.color = "gold";
+            }
+          });
+    
+          // Handle special cases for ratings (e.g., "red star")
+          if (selectedRating < 1) { 
+            starsInModal[0].classList.add("selected-red");
+            starsInModal[0].style.color = "red";
+          }
+        });
       });
-
-      // Highlight stars up to the selected one
-      starsInModal.forEach(s => {
-        const starRating = parseInt(s.getAttribute("data-rating"));
-        if (starRating <= selectedRating) {
-          s.classList.add("selected");
-          s.style.color = "gold";
-        }
-      });
-
-      // Handle special cases for ratings (e.g., "red star")
-      if (selectedRating < 1) { 
-        starsInModal[0].classList.add("selected-red");
-        starsInModal[0].style.color = "red";
-      }
-    });
-  });
-
 }
 
 function sendRating() {

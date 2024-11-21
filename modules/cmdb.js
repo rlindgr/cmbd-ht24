@@ -1,4 +1,5 @@
 import { config } from "./config.js";
+import { alertUser } from "./alertMessage.js";
 
 const baseUrl = config.cmdbApi.baseUrl;
 
@@ -30,20 +31,24 @@ export async function updateReview(imdbId, mediaDto) {
         const response = await fetch(endpoint, {
             method: "PUT",
             headers: {
-                'X-API-KEY': 'TcDz95HMTEmiww4FpLVELw',  // API-nyckeln
+                [config.cmdbApi.key]: config.cmdbApi.value,  // API-nyckeln
                 'Content-Type': 'application/json',  // Se till att innehållet är JSON
             },
-            body: JSON.stringify(mediaDto),  // Skicka data i body
+            body: JSON.stringify(mediaDto),  
         });
 
         // Kontrollera om svaret är OK (status 200-299)
         if (response.ok) {
-            const responseData = await response.json();  // Parsar svaret som JSON
-            console.log("Bidraget har uppdaterats:", responseData);  // Logga serverns svar
+            const responseData = await response.json();  
+            console.log("Bidraget har uppdaterats:", responseData); 
+            let message = "Ditt omdöme har uppdaterats";
+            alertUser(message); 
         } else {
             // Om svaret inte är OK, logga felet
             const errorText = await response.text();
             console.error("Fel vid uppdatering av bidrag:", errorText);
+            let message = "Något fick fel, det gick ej att updatera omdömet"
+            alertUser(message);
         }
     } catch (error) {
         // Hantera eventuella fel som uppstår vid begäran
@@ -188,21 +193,23 @@ export async function reviewMedia(mediaDto) {
         // Check if the response is OK (status 200-299)
         if (response.ok) {
             const responseData = await response.json();  // Parse the response as JSON
-            console.log("Recension skickad :D :P", responseData);  // Log the server response
+            console.log("Recension skickad", responseData); 
+            let message = "Omdömet har skickats";
+            alertUser(message);
         } else {
             // If the response is not OK, log the error
             const errorText = await response.text();
             console.error("Fel vid sändning av recension:", errorText);
+            let message = "Det gick inte att skicka in omdömet";
         }
     } catch (error) {
-        // Log any error that occurs during the request
         console.error("Kunde inte posta:", error);
     }
 }
 
 export async function deleteReview(imdbId) {
     const url = baseUrl + `Contributions/${imdbId}`;
-  
+  console.log("id till api", imdbId)
     try {
       const response = await fetch(url, {
         method: 'DELETE', // DELETE begäran för att ta bort recension
@@ -213,11 +220,15 @@ export async function deleteReview(imdbId) {
       });
   
       if (!response.ok) {
+        let message = "Det gick inte att ta bort omdömet/betyget";
+        alertUser(message);
         throw new Error('Fel vid borttagning av recension');
       }
-  
-      const result = await response.json();
-      console.log('Recensionen har tagits bort!', result);
+      else {
+        
+        alertUser('Din recension har tagits bort!');
+    }
+      
     } catch (error) {
       console.error('Fel vid borttagning av recension:', error);
     }

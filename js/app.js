@@ -13,11 +13,8 @@ import { searchFunction } from "../modules/searchfunction.js";
 document.addEventListener("DOMContentLoaded", async () => {
   
  
-  createUser(userInfo);
-  let userId = userInfo.id
-  console.log(userId); 
+  createUser(userInfo); 
   movies = await generateUserContributions();
-  console.log("filmer", movies);
   generateMovies(movies);
   generateUserStatistcs(movies);
   generateFilters(movies);
